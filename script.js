@@ -57,27 +57,56 @@ navLinks.forEach(link => {
   });
 });
 
-// Login
-loginForm.addEventListener('submit', e => {
+// Replace the entire login-form listener with this
+loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  showLoading();
-  const email = document.getElementById('email').value;
+  
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
+  
+  if (!email || !password) {
+    loginError.textContent = "Please enter email and password";
+    loginError.classList.remove('hidden');
+    return;
+  }
 
-  auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      hideLoading();
-      loginScreen.classList.add('hidden');
-      app.classList.remove('hidden');
-      showPage('dashboard-page');
-    })
-    .catch(err => {
-      hideLoading();
-      loginError.textContent = err.message;
-      loginError.classList.remove('hidden');
-    });
+  showLoading();
+  loginError.classList.add('hidden');
+
+  try {
+    console.log("Attempting login with:", email); // ← debug line
+
+    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    console.log("Login success:", userCredential.user.uid);
+
+    hideLoading();
+    loginScreen.classList.add('hidden');
+    app.classList.remove('hidden');
+    showPage('dashboard-page');
+
+  } catch (error) {
+    hideLoading();
+    
+    console.error("Login failed:", error.code, error.message); // ← important debug
+    
+    let msg = "Login failed. Please try again.";
+    
+    if (error.code === 'auth/invalid-credential' || 
+        error.code === 'auth/user-not-found' || 
+        error.code === 'auth/wrong-password') {
+      msg = "Incorrect email or password";
+    } else if (error.code === 'auth/too-many-requests') {
+      msg = "Too many attempts. Try again later or reset password";
+    } else if (error.code.includes('network')) {
+      msg = "Network error – check your internet";
+    } else {
+      msg = error.message || "Unknown error";
+    }
+
+    loginError.textContent = msg;
+    loginError.classList.remove('hidden');
+  }
 });
-
 // Logout
 logoutBtn.addEventListener('click', () => {
   showLoading();
