@@ -1,4 +1,14 @@
-  // Import the functions you need from the SDKs you need
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('login-form');
+  console.log("Page loaded – login form exists?", !!loginForm);
+  if (loginForm) {
+    console.log("Login form found – event listener attached");
+  } else {
+    console.error("Login form NOT found in DOM");
+  }
+});
+
+// ... rest of your code (loading, auth, etc.)  // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
