@@ -1,0 +1,136 @@
+/* ────────────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #f9fafb;
+  color: #111827;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ────────────────────────────────────────────────
+   LOADING
+───────────────────────────────────────────────── */
+.loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s ease;
+}
+
+/* ────────────────────────────────────────────────
+   SIDEBAR
+───────────────────────────────────────────────── */
+.sidebar {
+  position: fixed;
+  visibility: 0;
+  left: 0;
+  width: 16rem;
+  background: #1e40af;
+  color: white;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 40;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    transform: translateX(0);
+  }
+}
+
+/* ────────────────────────────────────────────────
+   MAIN CONTENT
+───────────────────────────────────────────────── */
+.ml-0 lg:ml-64 {
+  transition: margin-left 0.3s ease;
+}
+
+/* ────────────────────────────────────────────────
+   CONTENT PAGES
+───────────────────────────────────────────────── */
+.content-page {
+  display: none;
+}
+
+.content-page:not(.hidden) {
+  display: block;
+}
+
+/* ────────────────────────────────────────────────
+   CARDS
+───────────────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+/* ────────────────────────────────────────────────
+   NAV LINKS
+───────────────────────────────────────────────── */
+.nav-link {
+  transition: background 0.2s ease;
+}
+
+.nav-link:hover {
+  background: #1e3a8a;
+}
+
+/* ────────────────────────────────────────────────
+   MODAL
+───────────────────────────────────────────────── */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal:not(.hidden) {
+  display: flex;
+}
+
+/* ────────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
