@@ -8,24 +8,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ... rest of your code (loading, auth, etc.)  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+const firebaseConfig = {
+  apiKey: "AIzaSyAml9c8wcBQu72ExvGNr0qOqv5S-crEQyA",
+  authDomain: "rental-manager-3ed27.firebaseapp.com",
+  projectId: "rental-manager-3ed27",
+  storageBucket: "rental-manager-3ed27.firebasestorage.app",
+  messagingSenderId: "1040764747173",
+  appId: "1:1040764747173:web:73071327167a76e9ccfc4c"
+};
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAml9c8wcBQu72ExvGNr0qOqv5S-crEQyA",
-    authDomain: "rental-manager-3ed27.firebaseapp.com",
-    projectId: "rental-manager-3ed27",
-    storageBucket: "rental-manager-3ed27.firebasestorage.app",
-    messagingSenderId: "1040764747173",
-    appId: "1:1040764747173:web:73071327167a76e9ccfc4c"
-  };
+// =============================================
+// Initialize Firebase (compat version – MUST match the loaded scripts)
+// =============================================
+let auth, db;
+
+try {
+  firebase.initializeApp(firebaseConfig);
+  auth = firebase.auth();
+  db   = firebase.firestore();
+  console.log("Firebase initialized successfully ✅");
+} catch (err) {
+  console.error("Firebase init failed:", err);
+  alert("Firebase failed to load. Check your config and internet.");
+}
+
+
 // Elements
 const loading = document.getElementById('loading');
 const loginScreen = document.getElementById('login-screen');
-const app = initializeApp(firebaseConfig);
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('sidebar-toggle');
 const logoutBtn = document.getElementById('logout-btn');
